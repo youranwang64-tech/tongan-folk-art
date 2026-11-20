@@ -1,0 +1,14 @@
+
+#concept .bench-scene,#concept .bench-visual,#concept .edition-paper,#concept .ticket,#original-paint .room-window,#original-paint .camera-bar,#original-paint #model,#original-paint #relief-model{background:#fff!important;border:0;box-shadow:none}
+#concept .edition-paper,#concept .ticket{padding:0;transform:none;rotate:none;width:min(90%,72vh)}
+#concept .edition-paper .paper-meta,#concept .ticket-head,#concept .ticket .seal{display:none}
+#concept .ticket-line{border:none}#concept .ticket img{margin:0}
+#concept .edition-paper .proof-art{margin:0}#concept .bench-scene.arriving .edition-paper,#concept .bench-scene.arriving .ticket{animation:none}
+#original-paint{border:0}#original-paint summary{color:#36546d}#original-paint .room-window{position:relative}
+#relief-model{position:absolute;inset:0 0 50px;overflow:hidden;touch-action:pan-y;cursor:grab}
+#relief-model:active{cursor:grabbing}#relief-model canvas,#relief-model img{display:block;width:100%;height:100%;object-fit:contain}
+#original-paint [hidden]{display:none!important}.art-picker{display:flex;flex-wrap:wrap;gap:.45em 1.1em;padding:12px 0 20px}
+.art-picker button,.show-relief{font:inherit;font-size:13px;color:#416281;padding:.45em 0;border:0;border-bottom:1px solid transparent;background:white;cursor:pointer}
+.art-picker button[aria-pressed=true],.show-relief{border-bottom-color:currentColor}.show-relief{display:block;margin-top:15px}
+#original-paint .relief-views{display:flex;gap:1em;justify-content:flex-end}.art-picker button:focus-visible,#relief-model:focus-visible{outline:2px solid #416281;outline-offset:3px}
+
