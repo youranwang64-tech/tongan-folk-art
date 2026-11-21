@@ -53,3 +53,5 @@ html:lang(en) .guide-copy h2{font-size:clamp(27px,11.4cqw,50px);line-height:1.14
 .art-picker button[aria-pressed=true],.show-relief{border-bottom-color:currentColor}.show-relief{display:block;margin-top:15px}
 #original-paint .relief-views{display:flex;gap:1em;justify-content:flex-end}.art-picker button:focus-visible,#relief-model:focus-visible{outline:2px solid #416281;outline-offset:3px}
 
+
+@media(max-width:780px){.guide-spread{grid-template-columns:minmax(0,1fr)}.guide-plate{width:100%;min-width:0;aspect-ratio:auto}.tour-stage #court-viewport{height:calc(47svh - 16px)}}
