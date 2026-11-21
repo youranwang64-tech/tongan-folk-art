@@ -95,7 +95,7 @@ host.addEventListener('keydown',event=>{
 
 async function build(){
   const base='assets/bell-tower/';
-  const response=await fetch(base+'model.json?v=paint-route2');
+  const response=await fetch(base+'model.json?v=courtyard-white3');
   if(!response.ok)throw Error('Courtyard model: '+response.status);
   const {materials,batches}=await response.json();
   renderer=new T.WebGLRenderer({antialias:true});
@@ -112,7 +112,6 @@ async function build(){
       map.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
     }
     const color=map?new T.Color(0xffffff):new T.Color().setRGB(...style.color,T.SRGBColorSpace);
-    if(key==='GroundLine')color.setHex(0xf9fcfd);
     if(key==='ContextLine')color.setHex(0xfafcfd);
     palette.set(key,new T.MeshBasicMaterial({
       map,color,side:T.DoubleSide,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1,
@@ -125,7 +124,7 @@ async function build(){
     if(batch.uv.length)geometry.setAttribute('uv',new T.Float32BufferAttribute(batch.uv,2));
     scene.add(new T.Mesh(geometry,palette.get(batch.material)));
     if(batch.uv.length||batch.name.includes('Visitors'))continue;
-    const backdrop=batch.name.startsWith('00_')||batch.name.startsWith('01_');
+    const backdrop=batch.name.startsWith('01_');
     scene.add(new T.LineSegments(new T.EdgesGeometry(geometry,28),backdrop?backdropInk:edgeInk));
   }
   camera.position.copy(stops[0].target).addScaledVector(stops[0].from,cameraDistance);
