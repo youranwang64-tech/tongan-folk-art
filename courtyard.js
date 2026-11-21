@@ -7,10 +7,10 @@ const sections = [...document.querySelectorAll('.tour-stop')];
 const toWorld = ([x,y,z]) => new T.Vector3(x,z,-y);
 const stops = [
   {target:[6.15,4.8,1.45], from:[10,-14,11], span:16.9, poster:[50,50,1]},
+  {target:[6.0,3.75,1.42], from:[5,-13,10], span:13.8, poster:[50,53,1.12]},
   {target:[10.4,2.9,1.8], from:[9,-6,4], span:7.1, poster:[70,61,1.6]},
-  {target:[4.2,1.85,1.45], from:[3,-12,6], span:9.8, poster:[36,60,1.5]},
-  {target:[2.05,6.43,2.65], from:[-10,-3,5], span:6.8, poster:[38,23,1.75]},
-  {target:[2.05,6.43,1.77], from:[-12,2,2], span:4.8, poster:[38,31,1.9]},
+  {target:[5.7,.7,1.42], from:[.9,-13,2.0], span:5.7, poster:[51,66,1.55], depth:4},
+  {target:[4.72,4.38,1.03], from:[-7,-6,7], span:3.55, poster:[46,43,1.65], depth:1.9},
 ];
 for(const stop of stops){
   stop.target=toWorld(stop.target);
@@ -19,7 +19,7 @@ for(const stop of stops){
 
 const camera = new T.OrthographicCamera(-1,1,1,-1,.1,250);
 const scene = new T.Scene();
-let renderer, orbit, selection = 0, shotSize = stops[0].span, animation, scrollFrame;
+let renderer, orbit, selection = 0, shotSize = stops[0].span, shotDepth = 50, animation, scrollFrame;
 const cameraDistance=55;
 const verticalAxis = new T.Vector3(0,1,0);
 
@@ -31,6 +31,7 @@ function paint(){
   camera.right=span*ratio/2;
   camera.top=span/2;
   camera.bottom=-span/2;
+  camera.near=cameraDistance-shotDepth;
   camera.updateProjectionMatrix();
   renderer.render(scene,camera);
 }
@@ -52,11 +53,12 @@ function aim(index, animate=true){
   const b=new T.Spherical().setFromVector3(stop.from);
   const turn=Math.atan2(Math.sin(b.theta-a.theta),Math.cos(b.theta-a.theta));
   const offset=new T.Vector3();
-  const fromSize=shotSize;
+  const fromSize=shotSize, fromDepth=shotDepth;
   function frame(now){
     const t=duration?Math.min(1,(now-start)/duration):1;
     const k=t*t*(3-2*t);
     shotSize=T.MathUtils.lerp(fromSize,stop.span,k);
+    shotDepth=T.MathUtils.lerp(fromDepth,stop.depth??50,k);
     orbit.target.lerpVectors(from,stop.target,k);
     offset.setFromSphericalCoords(cameraDistance,T.MathUtils.lerp(a.phi,b.phi,k),a.theta+turn*k);
     camera.position.copy(orbit.target).add(offset);
@@ -93,7 +95,7 @@ host.addEventListener('keydown',event=>{
 
 async function build(){
   const base='assets/bell-tower/';
-  const response=await fetch(base+'model.json');
+  const response=await fetch(base+'model.json?v=paint-route2');
   if(!response.ok)throw Error('Courtyard model: '+response.status);
   const {materials,batches}=await response.json();
   renderer=new T.WebGLRenderer({antialias:true});
