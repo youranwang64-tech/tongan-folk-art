@@ -95,7 +95,7 @@ host.addEventListener('keydown',event=>{
 
 async function build(){
   const base='assets/bell-tower/';
-  const response=await fetch(base+'model.json?v=courtyard-white3');
+  const response=await fetch(base+'model.json?v=courtyard-story4');
   if(!response.ok)throw Error('Courtyard model: '+response.status);
   const {materials,batches}=await response.json();
   renderer=new T.WebGLRenderer({antialias:true});
