@@ -55,3 +55,22 @@ html:lang(en) .guide-copy h2{font-size:clamp(27px,11.4cqw,50px);line-height:1.14
 
 
 @media(max-width:780px){.guide-spread{grid-template-columns:minmax(0,1fr)}.guide-plate{width:100%;min-width:0;aspect-ratio:auto}.tour-stage #court-viewport{height:calc(47svh - 16px)}}
+
+#print-lychee .lychee-canopy {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: opacity .36s ease;
+}
+#print-lychee .canopy-ready .lychee-canopy { display: block; }
+#print-lychee .canopy-ready .pigment { opacity: 1; mask-image: none; transition: none; }
+#print-lychee .canopy-ready { cursor: grab; }
+#print-lychee .canopy-ready[aria-pressed=true] { cursor: zoom-out; }
+#print-lychee .canopy-ready[aria-pressed=true] .lychee-canopy { opacity: 0; }
+#print-lychee .canopy-ready .folio-plus { z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  #print-lychee .lychee-canopy { transition: none; }
+}
